@@ -30,6 +30,7 @@ bootstrap_token = secret "secrets", "openstack_identity_bootstrap_token"
 auth_uri = ::URI.decode identity_admin_endpoint.to_s
 
 api_endpoint = endpoint "network-api"
+api_endpoint_internal = endpoint 'network-api-internal'
 
 service_pass = service_password "openstack-network"
 service_tenant_name = node["openstack"]["network"]["service_tenant_name"]
@@ -51,8 +52,8 @@ openstack_identity_register "Register Network Endpoint" do
   bootstrap_token bootstrap_token
   service_type node["openstack"]["network"]["service_type"]
   endpoint_region node["openstack"]["network"]["region"]
-  endpoint_adminurl api_endpoint.to_s
-  endpoint_internalurl api_endpoint.to_s
+  endpoint_adminurl api_endpoint_internal.to_s
+  endpoint_internalurl api_endpoint_internal.to_s
   endpoint_publicurl api_endpoint.to_s
 
   action :create_endpoint
